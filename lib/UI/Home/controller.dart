@@ -14,7 +14,10 @@ class EmployeeController extends GetxController {
 
   fetchEmployee() async {
     isLoading.value = true;
-    list.value = (await Network().getEmployeeList())!;
+    var list1 = (await Network().getEmployeeList())!;
+    // list1.add(list1[0]);
+    // list1.add(list1[0]);list1.add(list1[0]);list1.add(list1[0]);list1.add(list1[0]);list1.add(list1[0]);
+    list.value = list1;
     isLoading.value = false;
   }
 

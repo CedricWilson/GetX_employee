@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_getx/Utils/employee_model.dart';
 
 class SecondPage extends StatelessWidget {
-  const SecondPage({Key? key}) : super(key: key);
+  final Employee employee;
+  SecondPage({Key? key,required this.employee}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,33 +18,39 @@ class SecondPage extends StatelessWidget {
 
   _body(BuildContext context) {
     return Center(
-      child: context.isPhone
-          ? Column(
-              children: [_image(), _row()],
-            )
-          : Row(
-              children: [_image(), _row()],
-            ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [_image(), _row()],
+      ),
     );
   }
 
-  Row _row() {
-    return Row(
+  _row() {
+    return Column(
       children: [
-        Text(Get.arguments[1]),
+        Text(
+          employee.firstName!,
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),
         SizedBox(
           width: 10,
         ),
-        Text(Get.arguments[2]),
+        Text(
+          employee.lastName!,
+          style: TextStyle(fontSize: 25),
+        ),
       ],
-    );
+    ).paddingOnly(top: 15);
   }
 
   Image _image() {
-    return Image(
-      width: 100,
-      height: 100,
-      image: NetworkImage(Get.arguments[0]),
+    return Image.network(
+      employee.avatar!,
+      fit: BoxFit.cover,
+      width: 300,
+      height: 300,
     );
   }
 }

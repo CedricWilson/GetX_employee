@@ -26,29 +26,25 @@ class HomePage extends StatelessWidget {
   }
 
   _body(BuildContext context) {
-    return Container(
-      child: Obx(() {
-        print("Rebuild");
-        return !x.isLoading.value
-            ? ListView.builder(
-                itemCount: x.list.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _repeater(x.list[index]);
-                },
-              )
-            : Center(child: CircularProgressIndicator());
-      }),
-    );
+    
+    return Obx(() {
+      print("Rebuild");
+      return !x.isLoading.value
+          ? ListView.builder(
+              itemCount: x.list.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _repeater(x.list[index],context);
+              },
+            )
+          : Center(child: CircularProgressIndicator());
+    });
   }
 
-  _repeater(Employee employee) {
+  _repeater(Employee employee,context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.second, arguments: [
-          employee.avatar,
-          employee.firstName,
-          employee.lastName
-        ]);
+        Navigator.pushNamed(context, Routes.second);
+        Get.toNamed(Routes.second, arguments: employee);
       },
       child: Card(
         child: Padding(
